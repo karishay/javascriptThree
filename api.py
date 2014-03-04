@@ -15,30 +15,34 @@ def index():
 
 @app.route('/', methods=['POST'])
 def index_post():
+    # create a a new list
     list_name = request.form.get('todo_list_name')
-    if not list_name:
-        flash("I'm sorry, but you'll need to specify a list name")
+    todo_lists.insert(dict(list_name=list_name))
 
-    else:
-        todo_lists.insert(dict(list_name=list_name))
+    #return all of the times for a given list
+    results = todo_lists.all()
+    lists = [l for l in results]
+    return render_template("todo_list_partial.html", lists=lists)
 
-        flash('Todo list %s created' % list_name)
-
-    return redirect('/')
 
 @app.route('/todo_lists/<int:id>')
 def todo_list_show(id):
+    # This returns a class
     items = todo_item_table.find(todo_list_id=id)
+    # This puts all the items into a list
     items = [x for x in items]
 
     return render_template("todo_list.html", items=items)
 
 @app.route('/todo_lists/<int:id>', methods=["POST"])
 def todo_item_create(id):
-    resp = todo_item_table.insert(dict(task=request.form.get("task"), todo_list_id=id, done=False))    
+    #  create a new todo item 
+    todo_item_table.insert(dict(task=request.form.get("task"), todo_list_id=id, done=False))    
 
-    return redirect("/todo_lists/%d" % id)
-
+    # return all of the items for a given list
+    items = todo_item_table.find(todo_list_id=id)
+    items = [x for x in items]
+    return render_template("todo_items_partial.html", items=items)
 
 @app.route('/todo_lists/poll')
 def poll_for_lists():
