@@ -20,10 +20,12 @@
                         <label for="item{{item.id}}">{{item.task}}</label>
                     </div>
                 {% endfor %}
-
+            </div>
+            <div id="form-todo-item">
                 <form id="todo-item-form" method="POST">
+                    <input id="unicorn" type="hidden" value="{{id}}"/>
                     <input type="text" name="task"></input>
-                    <input type="submit" value="Create item list"></input>
+                    <input id="submit-form" type="submit" value="Create item list"></input>
                 </form>
 
             </div>

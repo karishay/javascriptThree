@@ -32,7 +32,7 @@ def todo_list_show(id):
     # This puts all the items into a list
     items = [x for x in items]
 
-    return render_template("todo_list.html", items=items)
+    return render_template("todo_list.html", items=items, id=id)
 
 @app.route('/todo_lists/<int:id>', methods=["POST"])
 def todo_item_create(id):
