@@ -14,7 +14,7 @@
             <div id="todo-list">
                 {% for list in lists %}
                     <div class="todo-list">
-                        <label for="item{{list.id}}"><a href="/todo_lists/{{list.id}}"> {{list.list_name}}</a></label>
+                        <label class="todo-list" id="{{list.id}}" for="item{{list.id}}"><a  href="/todo_lists/{{list.id}}" id="{{list.id}}"> {{list.list_name}}</a></label>
                     </div>
                 {% endfor %}
             </div>
